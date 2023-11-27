@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class A4 {
 	/* The HashMap of Tokens. */
-	private HashMap<String, Token> Tokens;
+	private final HashMap<String, Token> tokens = new HashMap<>();
 	/* The ordered tree maps of Tokens. */
 	private TreeMap<Token, Token> wordsByNaturalOrder, wordsByLength, wordsByFreqDesc;
 	
@@ -50,7 +50,7 @@ public class A4 {
 
 	private void printResults() {
 		System.out.println("Total Words: " + totalTokencount);
-		System.out.println("Unique Words: " + Tokens.size());
+		System.out.println("Unique Words: " + tokens.size());
 		System.out.println("Stop Words: " + stopTokencount);
 		System.out.println();
 
@@ -92,17 +92,37 @@ public class A4 {
 	}
 
 	private void readFile() {
-		// TODO Auto-generated method stub
-		
+		Scanner input = new Scanner(System.in);
+		while (input.hasNext()) {
+			String word = input.next().toLowerCase().trim().replaceAll("[^a-z]", "");
+
+			if (!word.isEmpty()) {
+				totalTokencount++;
+
+				Token newElement = new Token(word);
+				Token existElement = tokens.get(word);
+
+				// TODO: Test this before leaving it til end
+				// From my knowledge of hashmaps this should be okay
+				if(!newElement.equals(existElement)) {
+					tokens.put(word, newElement);
+				}
+				else {
+					existElement.incrementCount();
+				}
+			}
+		}
+		input.close();
 	}
 	
 	private void removeStop() {
-		// TODO Auto-generated method stub
-		
+		for (String word : stopTokens) {
+			tokens.remove(word);
+		}
 	}	
 
 	private void createFreqLists() {
 		// TODO Auto-generated method stub
-		
+		// This is where you add them to the tree maps
 	}
 }

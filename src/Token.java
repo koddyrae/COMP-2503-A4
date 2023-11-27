@@ -78,7 +78,7 @@ public class Token implements Comparable<Token> {
 		return count;
 	}
 
-	public void incrCount() {
+	public void incrementCount() {
 		count++;
 	}
 
