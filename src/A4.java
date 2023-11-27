@@ -18,7 +18,9 @@ public class A4 {
 	/* The HashMap of Tokens. */
 	private final HashMap<String, Token> tokens = new HashMap<>();
 	/* The ordered tree maps of Tokens. */
-	private TreeMap<Token, Token> wordsByNaturalOrder, wordsByLength, wordsByFreqDesc;
+	private TreeMap<Token, Token> wordsByNaturalOrder = new TreeMap<>(Token.CompFreqAsc);
+	private TreeMap<Token, Token> wordsByLength = new TreeMap<>(Token.CompLengthDesc);
+	private TreeMap<Token, Token> wordsByFreqDesc = new TreeMap<>(Token.CompFreqDesc);
 	
 	// TODO: Must initialize the above HashMap and the TreeMap objects before using them.
 
@@ -34,6 +36,7 @@ public class A4 {
 
 	private int totalTokenCount = 0;
 	private int stopTokenCount = 0;
+	private int printSize = 0;
 
 	public static void main(String[] args) {
 		A4 a4 = new A4();
@@ -55,15 +58,23 @@ public class A4 {
 		System.out.println();
 
 		System.out.println("10 Most Frequent");
-		
-		// TODO: print the 10 most frequent   
+
+		// TODO: print the 10 most frequent
+		printSize = Math.min(10, wordsByFreqDesc.size());
+		while (printSize > 0) {
+
+		}
 		
 		System.out.println();
 
 		System.out.println("10 Longest");
 
 		// TODO: print the 10 longest
-		
+		printSize = Math.min(10, wordsByLength.size());
+		while (printSize > 0) {
+
+		}
+
 		System.out.println();
 
 		System.out.println("The longest word is " + returnLongestWord(wordsByLength));
@@ -74,6 +85,7 @@ public class A4 {
 		System.out.println("All");
 				
 		// TODO: print all words in alphabetical order
+
 	}
 
 	private int avgLength() {
