@@ -23,7 +23,7 @@ public class A4 {
 	// TODO: Must initialize the above HashMap and the TreeMap objects before using them.
 
 	// there are 103 stopTokens in this list
-	private String[] stopTokens = { "a", "about", "all", "am", "an", "and", "any", "are", "as", "at", "be", "been",
+	private final String[] stopTokens = { "a", "about", "all", "am", "an", "and", "any", "are", "as", "at", "be", "been",
 			"but", "by", "can", "cannot", "could", "did", "do", "does", "else", "for", "from", "get", "got", "had",
 			"has", "have", "he", "her", "hers", "him", "his", "how", "i", "if", "in", "into", "is", "it", "its", "like",
 			"more", "me", "my", "no", "now", "not", "of", "on", "one", "or", "our", "out", "said", "say", "says", "she",
@@ -32,8 +32,8 @@ public class A4 {
 			"whom", "why", "will", "you", "your", "up", "down", "left", "right", "man", "woman", "would", "should",
 			"dont", "after", "before", "im", "men" };
 
-	private int totalTokencount = 0;
-	private int stopTokencount = 0;
+	private int totalTokenCount = 0;
+	private int stopTokenCount = 0;
 
 	public static void main(String[] args) {
 		A4 a4 = new A4();
@@ -49,9 +49,9 @@ public class A4 {
 	}
 
 	private void printResults() {
-		System.out.println("Total Words: " + totalTokencount);
+		System.out.println("Total Words: " + totalTokenCount);
 		System.out.println("Unique Words: " + tokens.size());
-		System.out.println("Stop Words: " + stopTokencount);
+		System.out.println("Stop Words: " + stopTokenCount);
 		System.out.println();
 
 		System.out.println("10 Most Frequent");
@@ -97,12 +97,11 @@ public class A4 {
 			String word = input.next().toLowerCase().trim().replaceAll("[^a-z]", "");
 
 			if (!word.isEmpty()) {
-				totalTokencount++;
+				totalTokenCount++;
 
 				Token newElement = new Token(word);
 				Token existElement = tokens.get(word);
 
-				// TODO: Test this before leaving it til end
 				// From my knowledge of hashmaps this should be okay
 				if(!newElement.equals(existElement)) {
 					tokens.put(word, newElement);
@@ -116,7 +115,11 @@ public class A4 {
 	}
 	
 	private void removeStop() {
+		//TODO: stop word counter needs to be added
+
 		for (String word : stopTokens) {
+			//stopWordCounter++;
+			// if you had the stopWordCounter here i think it increments for each iteration regardless of the actual stop word
 			tokens.remove(word);
 		}
 	}	
