@@ -1,0 +1,13 @@
+Total Words: 0
+Unique Words: 0
+Stop Words: 0
+
+10 Most Frequent
+
+10 Longest
+
+The longest word is None
+The shortest word is None
+The average word length is 0
+
+All

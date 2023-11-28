@@ -61,8 +61,10 @@ public class A4 {
 
 		// TODO: print the 10 most frequent
 		printSize = Math.min(10, wordsByFreqDesc.size());
-		while (printSize > 0) {
-
+		if (printSize != 0) {
+			while (printSize > 0) {
+				printSize--;
+			}
 		}
 		
 		System.out.println();
@@ -71,9 +73,12 @@ public class A4 {
 
 		// TODO: print the 10 longest
 		printSize = Math.min(10, wordsByLength.size());
-		while (printSize > 0) {
-
+		if (printSize != 0) {
+			while (printSize > 0) {
+				printSize--;
+			}
 		}
+
 
 		System.out.println();
 
@@ -85,7 +90,12 @@ public class A4 {
 		System.out.println("All");
 				
 		// TODO: print all words in alphabetical order
-
+		printSize = wordsByNaturalOrder.size();
+		if (printSize != 0) {
+			while (printSize > 0) {
+				printSize--;
+			}
+		}
 	}
 
 	private int avgLength() {
