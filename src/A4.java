@@ -17,12 +17,11 @@ import java.util.Set;
 public class A4 {
 	/* The HashMap of Tokens. */
 	private final HashMap<String, Token> tokens = new HashMap<>();
+
 	/* The ordered tree maps of Tokens. */
 	private TreeMap<Token, Token> wordsByNaturalOrder = new TreeMap<>(Token.CompFreqAsc);
 	private TreeMap<Token, Token> wordsByLength = new TreeMap<>(Token.CompLengthDesc);
 	private TreeMap<Token, Token> wordsByFreqDesc = new TreeMap<>(Token.CompFreqDesc);
-	
-	// TODO: Must initialize the above HashMap and the TreeMap objects before using them.
 
 	// there are 103 stopTokens in this list
 	private final String[] stopTokens = { "a", "about", "all", "am", "an", "and", "any", "are", "as", "at", "be", "been",
@@ -35,15 +34,21 @@ public class A4 {
 			"dont", "after", "before", "im", "men" };
 
 	private int totalTokenCount = 0;
-	private int stopTokenCount = 0;
+	private int stopTokenCounter = 0;
 	private int printSize = 0;
 
+	/**
+	 * Main Method
+	 * @param args command lines args
+	 */
 	public static void main(String[] args) {
 		A4 a4 = new A4();
 		a4.run();
 	}
 	
-	/* Run the program. */
+	/**
+	 * Method to run the program.
+	 */
 	private void run() {
 		readFile();
 		removeStop();
@@ -51,35 +56,31 @@ public class A4 {
 		printResults();
 	}
 
+	/**
+	 * Method to print results of the required treemaps in desired orders
+	 */
 	private void printResults() {
 		System.out.println("Total Words: " + totalTokenCount);
 		System.out.println("Unique Words: " + tokens.size());
-		System.out.println("Stop Words: " + stopTokenCount);
+		System.out.println("Stop Words: " + stopTokenCounter);
 		System.out.println();
 
 		System.out.println("10 Most Frequent");
-
-		// TODO: print the 10 most frequent
 		printSize = Math.min(10, wordsByFreqDesc.size());
 		if (printSize != 0) {
 			while (printSize > 0) {
 				printSize--;
 			}
 		}
-		
 		System.out.println();
 
 		System.out.println("10 Longest");
-
-		// TODO: print the 10 longest
 		printSize = Math.min(10, wordsByLength.size());
 		if (printSize != 0) {
 			while (printSize > 0) {
 				printSize--;
 			}
 		}
-
-
 		System.out.println();
 
 		System.out.println("The longest word is " + returnLongestWord(wordsByLength));
@@ -88,14 +89,13 @@ public class A4 {
 
 		System.out.println();
 		System.out.println("All");
-				
-		// TODO: print all words in alphabetical order
 		printSize = wordsByNaturalOrder.size();
 		if (printSize != 0) {
 			while (printSize > 0) {
 				printSize--;
 			}
 		}
+		System.out.println();
 	}
 
 	private int avgLength() {
@@ -113,6 +113,9 @@ public class A4 {
 		return "None";
 	}
 
+	/**
+	 * Method to read the file and add words to the hashmap.
+	 */
 	private void readFile() {
 		Scanner input = new Scanner(System.in);
 		while (input.hasNext()) {
@@ -135,17 +138,24 @@ public class A4 {
 		}
 		input.close();
 	}
-	
+
+	/**
+	 * Method to check and remove the array of stop words from the hashmap if present.
+	 */
 	private void removeStop() {
-		//TODO: stop word counter needs to be added
-
 		for (String word : stopTokens) {
-			//stopWordCounter++;
-			// if you had the stopWordCounter here i think it increments for each iteration regardless of the actual stop word
-			tokens.remove(word);
-		}
-	}	
 
+			//Inner if statement needed to only increment stopTokenCounter for each stop word removed
+			if (tokens.containsKey(word)) {
+				stopTokenCounter++;
+				tokens.remove(word);
+			}
+		}
+	}
+
+	/**
+	 * Method to create the natural order, frequency and length lists.
+	 */
 	private void createFreqLists() {
 		// TODO Auto-generated method stub
 		// This is where you add them to the tree maps

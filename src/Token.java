@@ -5,7 +5,6 @@ import java.util.Comparator;
  * A Token object represents a word (string) and how many times it has
  * occurred in a given text.
  */
-
 public class Token implements Comparable<Token> {
 
 	// The word!
@@ -23,10 +22,16 @@ public class Token implements Comparable<Token> {
 		this.count = 0;
 	}
 
-	/*
+	/**
 	 * Comparator to sort from high to low frequency (count).
 	 */
 	public static Comparator<Token> CompFreqDesc = new Comparator<Token>() {
+		/**
+		 * Method to compare two objects
+		 * @param w1 the first object to be compared.
+		 * @param w2 the second object to be compared.
+		 * @return comparison the difference between the frequency in descending order, if equal alphabetical
+		 */
 		public int compare(Token w1, Token w2) {
 			int f1 = w1.getCount();
 			int f2 = w2.getCount();
@@ -37,10 +42,16 @@ public class Token implements Comparable<Token> {
 		}
 	};
 
-	/*
+	/**
 	 * Comparator to sort from low to high frequency (count).
 	 */
 	public static Comparator<Token> CompFreqAsc = new Comparator<Token>() {
+		/**
+		 * Method to compare two objects
+		 * @param w1 the first object to be compared.
+		 * @param w2 the second object to be compared.
+		 * @return comparison the difference between the frequency in ascending order, if equal alphabetical
+		 */
 		public int compare(Token w1, Token w2) {
 
 			int f1 = w1.getCount();
@@ -58,6 +69,12 @@ public class Token implements Comparable<Token> {
 	 */
 	public static Comparator<Token> CompLengthDesc = new Comparator<Token>() {
 
+		/**
+		 * Method to compare two objects
+		 * @param w1 the first object to be compared.
+		 * @param w2 the second object to be compared.
+		 * @return comparison the difference between the lengths, if equal alphabetical
+		 */
 		public int compare(Token w1, Token w2) {
 
 			int f1 = w1.getLength();
@@ -70,14 +87,25 @@ public class Token implements Comparable<Token> {
 		}
 	};
 
+	/**
+	 * Method to return the word of a token
+	 * @return word the word of a token
+	 */
 	public String getWord() {
 		return word;
 	}
 
+	/**
+	 * Method to reutrn the count of a token
+	 * @return count the frequency of a token
+	 */
 	public int getCount() {
 		return count;
 	}
 
+	/**
+	 * Method to increment the count of a token
+	 */
 	public void incrementCount() {
 		count++;
 	}
@@ -89,11 +117,16 @@ public class Token implements Comparable<Token> {
 		return getWord().length();
 	}
 
+	/**
+	 * Method to return token as a string
+	 * @return token in string format with its values separated by colons.
+	 */
 	public String toString() {
 		return getWord() + " : " + getLength() + " : " + getCount();
 	}
 
 	/**
+	 * Method to compare two objects.
 	 * A word is equal to another word if the string word is equal.
 	 */
 	public boolean equals(Object other) {
@@ -108,7 +141,7 @@ public class Token implements Comparable<Token> {
 	}
 
 	/**
-	 * Compare two words. This will order Words alphabetically.
+	 * Method to compare two words. This will order Words alphabetically.
 	 */
 	public int compareTo(Token o) {
 		if (this.equals(o))
