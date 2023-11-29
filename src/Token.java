@@ -19,7 +19,7 @@ public class Token implements Comparable<Token> {
 	 */
 	public Token(String w) {
 		this.word = w;
-		this.count = 0;
+		this.count = 1;
 	}
 
 	/**

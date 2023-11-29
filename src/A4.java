@@ -2,8 +2,6 @@ import java.util.Scanner;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.TreeMap;
-import java.util.Collection;
-import java.util.Set;
 
 /**
  * 
@@ -19,9 +17,9 @@ public class A4 {
 	private final HashMap<String, Token> tokens = new HashMap<>();
 
 	/* The ordered tree maps of Tokens. */
-	private TreeMap<Token, Token> wordsByNaturalOrder = new TreeMap<>(Token.CompFreqAsc);
-	private TreeMap<Token, Token> wordsByLength = new TreeMap<>(Token.CompLengthDesc);
-	private TreeMap<Token, Token> wordsByFreqDesc = new TreeMap<>(Token.CompFreqDesc);
+	private final TreeMap<Token, Token> wordsByNaturalOrder = new TreeMap<>(Token.CompFreqAsc);
+	private final TreeMap<Token, Token> wordsByLength = new TreeMap<>(Token.CompLengthDesc);
+	private final TreeMap<Token, Token> wordsByFreqDesc = new TreeMap<>(Token.CompFreqDesc);
 
 	// there are 103 stopTokens in this list
 	private final String[] stopTokens = { "a", "about", "all", "am", "an", "and", "any", "are", "as", "at", "be", "been",
@@ -35,7 +33,6 @@ public class A4 {
 
 	private int totalTokenCount = 0;
 	private int stopTokenCounter = 0;
-	private int printSize = 0;
 
 	/**
 	 * Main Method
@@ -66,19 +63,25 @@ public class A4 {
 		System.out.println();
 
 		System.out.println("10 Most Frequent");
-		printSize = Math.min(10, wordsByFreqDesc.size());
+		int printSize = Math.min(10, wordsByFreqDesc.size());
+		Iterator<Token> frequencyIterator = wordsByFreqDesc.values().iterator();
 		if (printSize != 0) {
-			while (printSize > 0) {
+			while (printSize > 0 && frequencyIterator.hasNext()) {
 				printSize--;
+				Token temp = frequencyIterator.next();
+				System.out.println(temp.toString());
 			}
 		}
 		System.out.println();
 
 		System.out.println("10 Longest");
 		printSize = Math.min(10, wordsByLength.size());
+		Iterator<Token> lengthIterator = wordsByLength.values().iterator();
 		if (printSize != 0) {
-			while (printSize > 0) {
+			while (printSize > 0 && lengthIterator.hasNext()) {
 				printSize--;
+				Token temp = lengthIterator.next();
+				System.out.println(temp.toString());
 			}
 		}
 		System.out.println();
@@ -90,26 +93,61 @@ public class A4 {
 		System.out.println();
 		System.out.println("All");
 		printSize = wordsByNaturalOrder.size();
+		Iterator<Token> naturalIterator = wordsByNaturalOrder.values().iterator();
 		if (printSize != 0) {
-			while (printSize > 0) {
+			while (printSize > 0 && naturalIterator.hasNext()) {
 				printSize--;
+				Token temp = naturalIterator.next();
+				System.out.println(temp.toString());
 			}
 		}
 		System.out.println();
 	}
 
+	/**
+	 * Method to print the average length of words in the file
+	 * @return length the average length of words
+	 */
 	private int avgLength() {
-		// TODO Auto-generated method stub
-		return 0;
+		int totalLength = 0;
+		int wordCount = 0;
+
+        // Iterate over the words in the tree
+        for (Token token : wordsByNaturalOrder.values()) {
+            totalLength += token.getWord().length();
+            wordCount++;
+        }
+
+		// Calculate and return the average length
+		// If there are words in the tree, compute the average; otherwise, return 0 to avoid division by zero
+		return (wordCount > 0) ? totalLength / wordCount : 0;
 	}
 
+	/**
+	 * Method to return the shortest word in the treemap
+	 * @param wordsByLength2 the treemap
+	 * @return shortest the shortest word, if null returns "None"
+	 */
 	private String returnShortestWord(TreeMap<Token, Token> wordsByLength2) {
-		// TODO Auto-generated method stub
+		Iterator<Token> iterator = wordsByLength2.values().iterator();
+		Token temp = iterator.next();
+		if (!iterator.hasNext()) {
+			return temp.getWord();
+		}
 		return "None";
 	}
 
+	/**
+	 * Method to return the longest word in the treemap
+	 * @param wordsByLength2 the treemap
+	 * @return longest the longest word, if null returns "None"
+	 */
 	private String returnLongestWord(TreeMap<Token, Token> wordsByLength2) {
-		// TODO Auto-generated method stub
+		Iterator<Token> iterator = wordsByLength2.values().iterator();
+		Token longest = iterator.next();
+		if (longest != null) {
+			return longest.getWord();
+		}
 		return "None";
 	}
 
@@ -157,7 +195,17 @@ public class A4 {
 	 * Method to create the natural order, frequency and length lists.
 	 */
 	private void createFreqLists() {
-		// TODO Auto-generated method stub
 		// This is where you add them to the tree maps
+
+        for (Token temp : tokens.values()) {
+			//Add to wordsByNaturalOrder (to order alphabetically)
+            wordsByNaturalOrder.put(temp, temp);
+
+            //Add to wordsByLength (to order by descending length)
+            wordsByLength.put(temp, temp);
+
+            //Add to wordsByFreq treemap (to order by descending frequency)
+            wordsByFreqDesc.put(temp, temp);
+        }
 	}
 }
