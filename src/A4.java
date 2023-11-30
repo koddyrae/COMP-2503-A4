@@ -89,8 +89,8 @@ public class A4 {
 		System.out.println("The longest word is " + returnLongestWord(wordsByLength));
 		System.out.println("The shortest word is " + returnShortestWord(wordsByLength));
 		System.out.println("The average word length is " + avgLength());
-
 		System.out.println();
+		
 		System.out.println("All");
 		printSize = wordsByNaturalOrder.size();
 		Iterator<Token> naturalIterator = wordsByNaturalOrder.values().iterator();
@@ -129,12 +129,18 @@ public class A4 {
 	 * @return shortest the shortest word, if null returns "None"
 	 */
 	private String returnShortestWord(TreeMap<Token, Token> wordsByLength2) {
-		Iterator<Token> iterator = wordsByLength2.values().iterator();
-		Token temp = iterator.next();
-		if (!iterator.hasNext()) {
-			return temp.getWord();
+		if (wordsByLength2.isEmpty()) {
+			return "None";
 		}
-		return "None";
+		else {
+			Iterator<Token> iterator = wordsByLength2.values().iterator();
+			Token shortest = iterator.next();
+
+			while (iterator.hasNext()) {
+				shortest = iterator.next();
+			}
+			return (shortest != null) ? shortest.getWord() : "None";
+		}
 	}
 
 	/**
@@ -143,12 +149,14 @@ public class A4 {
 	 * @return longest the longest word, if null returns "None"
 	 */
 	private String returnLongestWord(TreeMap<Token, Token> wordsByLength2) {
-		Iterator<Token> iterator = wordsByLength2.values().iterator();
-		Token longest = iterator.next();
-		if (longest != null) {
-			return longest.getWord();
+		if (wordsByLength2.isEmpty()) {
+			return "None";
 		}
-		return "None";
+		else {
+			Iterator<Token> iterator = wordsByLength2.values().iterator();
+			Token longest = iterator.next();
+			return (longest != null) ? longest.getWord() : "None";
+		}
 	}
 
 	/**
