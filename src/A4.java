@@ -1,7 +1,4 @@
-import java.util.Scanner;
-import java.util.Iterator;
-import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * 
@@ -17,9 +14,9 @@ public class A4 {
 	private final HashMap<String, Token> tokens = new HashMap<>();
 
 	/* The ordered tree maps of Tokens. */
-	private final TreeMap<Token, Token> wordsByNaturalOrder = new TreeMap<>(Token.CompFreqAsc);
-	private final TreeMap<Token, Token> wordsByLength = new TreeMap<>(Token.CompLengthDesc);
-	private final TreeMap<Token, Token> wordsByFreqDesc = new TreeMap<>(Token.CompFreqDesc);
+	private final TreeMap<Token, String> wordsByNaturalOrder = new TreeMap<>(Comparator.naturalOrder());
+	private final TreeMap<Token, String> wordsByLength = new TreeMap<>(Token.CompLengthDesc);
+	private final TreeMap<Token, String> wordsByFreqDesc = new TreeMap<>(Token.CompFreqDesc);
 
 	// there are 103 stopTokens in this list
 	private final String[] stopTokens = { "a", "about", "all", "am", "an", "and", "any", "are", "as", "at", "be", "been",
@@ -62,9 +59,10 @@ public class A4 {
 		System.out.println("Stop Words: " + stopTokenCounter);
 		System.out.println();
 
+		//To print the wordsByFreqDesc treemap
 		System.out.println("10 Most Frequent");
 		int printSize = Math.min(10, wordsByFreqDesc.size());
-		Iterator<Token> frequencyIterator = wordsByFreqDesc.values().iterator();
+		Iterator<Token> frequencyIterator = wordsByFreqDesc.keySet().iterator();
 		if (printSize != 0) {
 			while (printSize > 0 && frequencyIterator.hasNext()) {
 				printSize--;
@@ -74,9 +72,10 @@ public class A4 {
 		}
 		System.out.println();
 
+		//To print the wordsByLength treemap
 		System.out.println("10 Longest");
 		printSize = Math.min(10, wordsByLength.size());
-		Iterator<Token> lengthIterator = wordsByLength.values().iterator();
+		Iterator<Token> lengthIterator = wordsByLength.keySet().iterator();
 		if (printSize != 0) {
 			while (printSize > 0 && lengthIterator.hasNext()) {
 				printSize--;
@@ -90,10 +89,11 @@ public class A4 {
 		System.out.println("The shortest word is " + returnShortestWord(wordsByLength));
 		System.out.println("The average word length is " + avgLength());
 		System.out.println();
-		
+
+		//To print the wordsByNaturalOrder treemap
 		System.out.println("All");
 		printSize = wordsByNaturalOrder.size();
-		Iterator<Token> naturalIterator = wordsByNaturalOrder.values().iterator();
+		Iterator<Token> naturalIterator = wordsByNaturalOrder.keySet().iterator();
 		if (printSize != 0) {
 			while (printSize > 0 && naturalIterator.hasNext()) {
 				printSize--;
@@ -101,7 +101,6 @@ public class A4 {
 				System.out.println(temp.toString());
 			}
 		}
-		System.out.println();
 	}
 
 	/**
@@ -113,7 +112,7 @@ public class A4 {
 		int wordCount = 0;
 
         // Iterate over the words in the tree
-        for (Token token : wordsByNaturalOrder.values()) {
+        for (Token token : wordsByNaturalOrder.keySet()) {
             totalLength += token.getWord().length();
             wordCount++;
         }
@@ -133,7 +132,7 @@ public class A4 {
 			return "None";
 		}
 		else {
-			Iterator<Token> iterator = wordsByLength2.values().iterator();
+			Iterator<Token> iterator = wordsByLength2.keySet().iterator();
 			Token shortest = iterator.next();
 
 			while (iterator.hasNext()) {
@@ -153,7 +152,7 @@ public class A4 {
 			return "None";
 		}
 		else {
-			Iterator<Token> iterator = wordsByLength2.values().iterator();
+			Iterator<Token> iterator = wordsByLength2.keySet().iterator();
 			Token longest = iterator.next();
 			return (longest != null) ? longest.getWord() : "None";
 		}
@@ -173,7 +172,6 @@ public class A4 {
 				Token newElement = new Token(word);
 				Token existElement = tokens.get(word);
 
-				// From my knowledge of hashmaps this should be okay
 				if(!newElement.equals(existElement)) {
 					tokens.put(word, newElement);
 				}
@@ -207,13 +205,13 @@ public class A4 {
 
         for (Token temp : tokens.values()) {
 			//Add to wordsByNaturalOrder (to order alphabetically)
-            wordsByNaturalOrder.put(temp, temp);
+            wordsByNaturalOrder.put(temp, temp.getWord());
 
             //Add to wordsByLength (to order by descending length)
-            wordsByLength.put(temp, temp);
+            wordsByLength.put(temp, temp.getWord());
 
             //Add to wordsByFreq treemap (to order by descending frequency)
-            wordsByFreqDesc.put(temp, temp);
+            wordsByFreqDesc.put(temp, temp.getWord());
         }
 	}
 }

@@ -96,7 +96,7 @@ public class Token implements Comparable<Token> {
 	}
 
 	/**
-	 * Method to reutrn the count of a token
+	 * Method to return the count of a token
 	 * @return count the frequency of a token
 	 */
 	public int getCount() {
