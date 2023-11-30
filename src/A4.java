@@ -127,18 +127,18 @@ public class A4 {
 	 * @param wordsByLength2 the treemap
 	 * @return shortest the shortest word, if null returns "None"
 	 */
-	private String returnShortestWord(TreeMap<Token, Token> wordsByLength2) {
+	private String returnShortestWord(TreeMap<Token, String> wordsByLength2) {
 		if (wordsByLength2.isEmpty()) {
 			return "None";
 		}
 		else {
-			Iterator<Token> iterator = wordsByLength2.keySet().iterator();
-			Token shortest = iterator.next();
+			Iterator<String> iterator = wordsByLength2.values().iterator();
+			String shortest = iterator.next();
 
 			while (iterator.hasNext()) {
 				shortest = iterator.next();
 			}
-			return (shortest != null) ? shortest.getWord() : "None";
+			return (shortest != null) ? shortest : "None";
 		}
 	}
 
@@ -147,14 +147,14 @@ public class A4 {
 	 * @param wordsByLength2 the treemap
 	 * @return longest the longest word, if null returns "None"
 	 */
-	private String returnLongestWord(TreeMap<Token, Token> wordsByLength2) {
+	private String returnLongestWord(TreeMap<Token, String> wordsByLength2) {
 		if (wordsByLength2.isEmpty()) {
 			return "None";
 		}
 		else {
-			Iterator<Token> iterator = wordsByLength2.keySet().iterator();
-			Token longest = iterator.next();
-			return (longest != null) ? longest.getWord() : "None";
+			Iterator<String> iterator = wordsByLength2.values().iterator();
+			String longest = iterator.next();
+			return (longest != null) ? longest : "None";
 		}
 	}
 
